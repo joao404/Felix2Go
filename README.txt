@@ -53,6 +53,10 @@ If you want your CD to install some packages automatically to create your distro
 -> Insert your favourite debian package name at the end of the line
 -> Save and exit
 
+## Download Debian ISO
+You can download the debian iso using the script
+./get-debian-iso.sh
+
 ##Generating iso
 Login as root and run the iso-build.sh, the script will generate an iso file in the output folder
 ./iso-build.sh
