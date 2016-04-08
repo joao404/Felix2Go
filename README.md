@@ -2,14 +2,14 @@
 Felix2Go is a fully automated Debian Linux Installer which can be used to 
 create a Debian based custom distribution.  
 
-How to:
+#How to:
 There are two bash scripts app-build.sh and iso-build.sh.  The app-build.sh
 is used to build the so called apps which contains configuration files and 
 script as a single self extracting file. The iso-build.sh is used to generate
  a iso which includes all the apps that are created using app-build.sh. 
 
 The following sections will guide about the usage
-Creating apps:
+##Creating apps:
 In the project there is an folder named 'app' and all the individual apps
 should be created there. Each app needs to have its own directory.
 
@@ -31,7 +31,7 @@ $cat /etc/felix_version
 
 This is accomplished using postinstall.sh. The content of example look like this 
 $cat postinstall.sh
-#!/bin/bash
+!/bin/bash
 
 cd src
 cp -a * /
@@ -46,13 +46,13 @@ Compressing...  version-app
 
 This will compress and create self extracting app and copy them to the 'output' folder.
 
-Adding package
+##Adding package
 If you want your CD to install some packages automatically to create your distro. 
 -> Then open the file iso/felix-preseed.cfg.
 -> Search for the line "d-i pkgsel/include". 
 -> Insert your favourite debian package name at the end of the line
 -> Save and exit
 
-Generating iso
+##Generating iso
 Login as root and run the iso-build.sh, the script will generate an iso file in the output folder
-#./iso-build.sh
+./iso-build.sh
