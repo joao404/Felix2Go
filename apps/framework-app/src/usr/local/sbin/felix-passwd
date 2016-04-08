@@ -1,0 +1,31 @@
+# This file is part of Felix2Go.
+#
+# Felix2Go is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Felix2Go is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Felix2Go.  If not, see <http://www.gnu.org/licenses/>.
+
+#!/bin/bash
+username=$1
+echo -n "Password:"
+read -s userpasswd
+echo
+echo -n "Retype the password:"
+read -s userpasswd1
+echo
+if [ ! "$userpasswd" == "$userpasswd1" ] ; then
+	echo "Passwords do not match"
+	exit 1
+fi 
+
+echo -e "$userpasswd\n$userpasswd\n"|passwd  $username  
+
+(echo "$userpasswd"; echo "$userpasswd")|smbpasswd -s -a  $username  
