@@ -19,7 +19,7 @@ OUT_DIR=$PWD/output/
 LOOPDIR=$OUT_DIR/__loopdir__
 CDDIR=$OUT_DIR/__cd__
 IRDIR=$OUT_DIR/__irmod__
-ISO=$PWD/iso/debian-8.4.0-amd64-lxde-CD-1.iso
+ISO=$PWD/iso/debian-8.3.0-amd64-lxde-CD-1.iso
 OUTPUTISO=$PWD/output/Felix2go.iso
 PRESEED_CFG=$PWD/iso/felix-preseed.cfg
 NEW_PRESEED_CFG=$PWD/iso/new-preseed.cfg
@@ -72,23 +72,12 @@ echo "Copying preseed file"
 cp $PRESEED_CFG  $NEW_PRESEED_CFG
 
 cd $APPS_DIR
-printf "d-i preseed/late_command string cp ">$TMPF
+echo "">$TMPF
 for i in $(ls -d *);
 do
-    printf "/cdrom/felix/${i}.run  ">>$TMPF
-done
-printf " /target/root/; ">>$TMPF
-
-
-printf "chroot /target chmod +x ">>$TMPF
-for i in $(ls -d *);
-do
-    printf "/root/${i}.run  ">>$TMPF
-done
-printf ";">>$TMPF
-for i in $(ls -d *);
-do
-    printf "chroot /target /root/${i}.run;">>$TMPF
+echo "d-i preseed/late_command string  cp /cdrom/felix/${i}.run /target/root/; ">>$TMPF
+echo "d-i preseed/late_command string  chroot /target chmod +x /root/${i}.run ;">>$TMPF
+echo "d-i preseed/late_command string  chroot /target /root/${i}.run;">>$TMPF
 done
 cat $TMPF>>$NEW_PRESEED_CFG
 
