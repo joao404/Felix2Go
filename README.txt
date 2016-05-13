@@ -60,3 +60,4 @@ You can download the debian iso using the script
 ##Generating iso
 Login as root and run the iso-build.sh, the script will generate an iso file in the output folder
 ./iso-build.sh
+
