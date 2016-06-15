@@ -17,3 +17,11 @@ address 10.0.2.2
 netmask 255.255.255.0
 up ifup eth0:1
 pre-down ifdown eth0:1
+
+auto eth1
+allow-hotplug eth1
+iface eth1 inet static
+address 10.0.0.1
+netmask 255.255.255.0
+up ifup eth1
+pre-down ifdown eth1
