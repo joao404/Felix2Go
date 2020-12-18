@@ -21,6 +21,8 @@ OUT_DIR=$PWD/output/
 LOOPDIR=$OUT_DIR/__loopdir__
 CDDIR=$OUT_DIR/__cd__
 IRDIR=$OUT_DIR/__irmod__
+ISOVERSION=10.7.0
+ISOFILE=debian-${ISOVERSION}-amd64-netinst.iso
 ISO=$PWD/iso/${ISOFILE}
 OUTPUTISO=$PWD/output/Felix2go.iso
 PRESEED_CFG=$PWD/iso/felix-preseed.cfg
@@ -29,14 +31,23 @@ TMPF=/tmp/tmp_preseed.txt
 MAKE_SELF=$PWD/makeself/makeself.sh
 echo "Automated ISO generator"
 
-
+function getDebianOs(){
+cd $PWD/iso
+echo ${ISOVERSION}
+echo ${ISOFILE}
+if [ ! -e ${ISOFILE} ]; then
+wget http://cdimage.debian.org/debian-cd/${ISOVERSION}/amd64/iso-cd/${ISOFILE}
+else
+echo "File already exists"
+fi
+}
 
 function createExeApps() {
 cd $APPS_DIR
 for i in $(ls -d *); 
 do 
     echo "Compressing... " ${i}; 
-    $MAKE_SELF ${i} $OUT_DIR/${i}.run "${i}" ./postinstall.sh >/dev/null 2>&1
+    $MAKE_SELF ${i} $OUT_DIR/${i}.run "${i}" ./postinstall.sh #>/dev/null 2>&1
 done
 } 
 
@@ -149,12 +160,13 @@ fi
 }
 
 
-sh ./get-debian-iso.sh
+getDebianOs
 checkRoot
 copySeed
 copyImage
 hackInitrd
 hackInitrdGtk
+createExeApps
 copyApps
 changeTimeout
 generateISO
