@@ -111,6 +111,21 @@ rm -rf $IRDIR
 
 }
 
+function hackInitrdGtk() {
+[ -e $IRDIR ] && rm -rf $IRDIR
+mkdir $IRDIR
+cd $IRDIR
+gzip -d < $CDDIR/install.amd/gtk/initrd.gz |cpio --extract --verbose --make-directories --no-absolute-filenames 
+#gzip -d < $CDDIR/install.amd/initrd.gz |cpio --extract --make-directories --no-absolute-filenames >/dev/null 2>&1
+cp $NEW_PRESEED_CFG  preseed.cfg 
+find . | cpio -H newc --create --verbose | gzip -9 >initrd.gz 
+#find . | cpio -H newc --create | gzip -9 >initrd.gz >/dev/null 2>&1
+cp initrd.gz $CDDIR/install.amd/gtk/
+cd ..
+rm -rf $IRDIR
+
+}
+
 function copyImage() {
 
 echo $CDDIR
@@ -137,6 +152,7 @@ checkRoot
 copySeed
 copyImage
 hackInitrd
+hackInitrdGtk
 copyApps
 changeTimeout
 generateISO
