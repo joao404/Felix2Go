@@ -21,7 +21,7 @@ OUT_DIR=$PWD/output/
 LOOPDIR=$OUT_DIR/__loopdir__
 CDDIR=$OUT_DIR/__cd__
 IRDIR=$OUT_DIR/__irmod__
-ISO=$PWD/iso/debian-10.7.0-amd64-netinst.iso
+ISO=$PWD/iso/${ISOFILE}
 OUTPUTISO=$PWD/output/Felix2go.iso
 PRESEED_CFG=$PWD/iso/felix-preseed.cfg
 NEW_PRESEED_CFG=$PWD/iso/new-preseed.cfg
@@ -148,6 +148,8 @@ fi
 
 }
 
+
+sh ./get-debian-iso.sh
 checkRoot
 copySeed
 copyImage
@@ -156,4 +158,4 @@ hackInitrdGtk
 copyApps
 changeTimeout
 generateISO
-cleanup
+#cleanup

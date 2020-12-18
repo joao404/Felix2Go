@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This file is part of Felix2Go.
 #
 # Felix2Go is free software: you can redistribute it and/or modify
@@ -13,13 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Felix2Go.  If not, see <http://www.gnu.org/licenses/>.
 
-#!/bin/bash
 APPS_DIR=$PWD/apps
 OUT_DIR=$PWD/output/
 LOOPDIR=$OUT_DIR/__loopdir__
 CDDIR=$OUT_DIR/__cd__
 IRDIR=$OUT_DIR/__irmod__
-ISO=$PWD/iso/debian-8.3.0-amd64-lxde-CD-1.iso
 OUTPUTISO=$PWD/output/Felix2go.iso
 PRESEED_CFG=$PWD/iso/felix-preseed.cfg
 NEW_PRESEED_CFG=$PWD/iso/new-preseed.cfg

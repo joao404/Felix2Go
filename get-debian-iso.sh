@@ -1,4 +1,12 @@
 #!/bin/bash
 
 cd iso
-wget http://cdimage.debian.org/debian-cd/10.7.0/amd64/iso-cd/debian-10.7.0-amd64-netinst.iso
+ISOVERSION=10.7.0
+ISOFILE=debian-${ISOVERSION}-amd64-netinst.iso
+echo ${ISOVERSION}
+echo ${ISOFILE}
+if [ ! -e ${ISOFILE} ]; then
+wget http://cdimage.debian.org/debian-cd/${ISOVERSION}/amd64/iso-cd/${ISOFILE}
+else
+echo "File already exists"
+fi
