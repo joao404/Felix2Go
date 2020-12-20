@@ -47,7 +47,7 @@ cd $APPS_DIR
 for i in $(ls -d *); 
 do 
     echo "Compressing... " ${i}; 
-    $MAKE_SELF ${i} $OUT_DIR/${i}.run "${i}" ./postinstall.sh #>/dev/null 2>&1
+    $MAKE_SELF --nox11 ${i} $OUT_DIR/${i}.run "${i}" ./postinstall.sh #>/dev/null 2>&1
 done
 } 
 
@@ -93,16 +93,18 @@ done
 printf " /target/root/; ">>$TMPF
 
 
-printf "chroot /target chmod +x ">>$TMPF
+printf "in-target chmod +x ">>$TMPF
 for i in $(ls -d *);
 do
     printf "/root/${i}.run  ">>$TMPF
 done
 printf ";">>$TMPF
+printf "ls /target/root;">>$TMPF
 for i in $(ls -d *);
 do
-    printf "chroot /target /root/${i}.run;">>$TMPF
+    printf "in-target sudo /root/${i}.run >/target/root/${i}.log 2>&1;">>$TMPF
 done
+printf "echo \"End of preseed\"">>$TMPF
 cat $TMPF>>$NEW_PRESEED_CFG
 
 }
@@ -170,4 +172,4 @@ createExeApps
 copyApps
 changeTimeout
 generateISO
-#cleanup
+cleanup
